@@ -1,5 +1,5 @@
 /**
- *  Aeon HEMv2
+ *  Aeon HEMv1
  *
  *  Copyright 2014 Barry A. Burke
  *
@@ -55,7 +55,7 @@
 metadata {
     // Automatically generated. Make future change here.
     definition (
-        name: "Aeon HEMv2", 
+        name: "Aeon HEMv1", 
         namespace: "smartthings",
         category: "Green Living",
         author: "Barry A. Burke"
@@ -63,11 +63,11 @@ metadata {
     {
         capability "Energy Meter"
         capability "Power Meter"
-        capability "Configuration"
+        //capability "Configuration"
         capability "Sensor"
         capability "Refresh"
         capability "Polling"
-        capability "Battery"
+        //capability "Battery"
         
         attribute "energy", "string"
         attribute "power", "string"
@@ -119,20 +119,20 @@ metadata {
         valueTile("powerDisp", "device.powerDisp") {
             state (
                 "default", 
-                label:'${currentValue}', 
+                label:'${currentValue}',
                 foregroundColors:[
                     [value: 1, color: "#000000"],
                     [value: 10000, color: "#ffffff"]
                 ], 
                 foregroundColor: "#000000",
                 backgroundColors:[
-                    [value: "0 Watts",      color: "#153591"],
-                    [value: "500 Watts",   color: "#1e9cbb"],
-                    [value: "1000 Watts",   color: "#90d2a7"],
-                    [value: "1500 Watts",   color: "#44b621"],
-                    [value: "2000 Watts",  color: "#f1d801"],
-                    [value: "2500 Watts",  color: "#d04e00"], 
-                    [value: "3000 Watts",  color: "#bc2323"] 
+                    [value: "0",    color: "#1DB100"],
+                    [value: "500",  color: "#61D836"],
+                    [value: "1000", color: "#88FA4E"],
+                    [value: "1500", color: "#F8BA00"],
+                    [value: "2000", color: "#FF968D"],
+                    [value: "2500", color: "#FF644E"],
+                    [value: "3000", color: "#EE220C"]
                     /*
                     [value: "0 Watts",      color: "#153591"],
                     [value: "3000 Watts",   color: "#1e9cbb"],
@@ -225,9 +225,9 @@ metadata {
         details([
             "energyOne","energyDisp","energyTwo",
             "powerOne","powerDisp","powerTwo",
-            //"ampsOne","ampsDisp","ampsTwo",         // Comment out these two lines for HEMv!
+            //"ampsOne","ampsDisp","ampsTwo",         // Comment out these two lines for HEMv1
             //"voltsOne","voltsDisp","voltsTwo",      // Comment out these two lines for HEMv1
-            "reset","refresh", "battery", "configure"
+            "reset","refresh", /*"battery", "configure"*/
         ])
     }
     preferences {
@@ -382,7 +382,7 @@ def reset() {
     state.voltsHigh = 0
     state.voltsLow = 999
     
-    def dateString = new Date().format("m/d/YY", location.timeZone)
+    def dateString = new Date().format("M/d/YY", location.timeZone)
     def timeString = new Date().format("h:mm a", location.timeZone)
     sendEvent(name: "energyOne", value: "Since\n"+dateString+"\n"+timeString, unit: "")
     sendEvent(name: "powerOne", value: "", unit: "")    
